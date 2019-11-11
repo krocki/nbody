@@ -1,7 +1,7 @@
 GCC=gcc
 TARGETS = nbody
 INCLUDES=../clib/
-CFLAGS = -g -O0 -fPIC -std=c11 -Wfatal-errors
+CFLAGS = -g3 -O0 -fPIC -std=c11 -Wfatal-errors
 LFLAGS = -lm
 
 .SUFFIXES:

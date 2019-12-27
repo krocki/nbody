@@ -1,6 +1,6 @@
 GCC=gcc
 TARGETS = nbody
-INCLUDES=../clib/
+INCLUDES=
 CFLAGS = -g3 -O0 -fPIC -std=c11 -Wfatal-errors
 LFLAGS = -lm
 
@@ -9,7 +9,7 @@ LFLAGS = -lm
 all: $(TARGETS)
 
 %: %.o
-	$(GCC) $(LFLAGS) -o $@ $^
+	$(GCC) -o $@ $^ $(LFLAGS)
 
 %.o: %.c
 	$(GCC) -I$(INCLUDES) $(CFLAGS) -c $< -o $@

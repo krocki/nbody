@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <timer.h>
 #include <math.h>
+#include "timer.h"
 
 float randf() {
   return 2.0f * (rand() / (float)RAND_MAX) - 1.0f;

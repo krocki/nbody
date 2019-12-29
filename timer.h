@@ -16,3 +16,12 @@ double get_time() {
            te-ts, ce-cs); \
   } while (0)
 
+#define timeit2(expr, val)  \
+  do { double ts=get_time(); \
+       unsigned long long cs=rdtsc(); \
+       (expr); \
+       unsigned long long ce=rdtsc(); \
+       double te=get_time(); \
+       *(val) = te-ts; \
+  } while (0)
+

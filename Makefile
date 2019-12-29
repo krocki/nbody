@@ -1,20 +1,21 @@
 GCC=gcc
-TARGETS = nbody
-INCLUDES=
-CFLAGS = -g3 -O0 -fPIC -std=c11 -Wfatal-errors
+TARGETS = nbody nbody_gl
+INCLUDES=.
+CFLAGS = -g -O1 -fPIC -std=c99 -Wfatal-errors
 LFLAGS = -lm
+HEADERS:=$(wildcard *.h)
 
 .SUFFIXES:
 
 all: $(TARGETS)
 
-%: %.o
+nbody_gl: main_gl.o nbody.o randf.o
 	$(GCC) -o $@ $^ $(LFLAGS)
 
-%.o: %.c
-	$(GCC) -I$(INCLUDES) $(CFLAGS) -c $< -o $@
+nbody: main.o nbody.o randf.o
+	$(GCC) -o $@ $^ $(LFLAGS)
 
-%.o: %.c %.h
+%.o: %.c $(HEADERS)
 	$(GCC) -I$(INCLUDES) $(CFLAGS) -c $< -o $@
 
 clean:

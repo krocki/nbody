@@ -1,8 +1,8 @@
 CC=gcc
 TARGETS = nbody nbody_gl
 INCLUDES=.
-CFLAGS = -g -O3 -fPIC -std=c99 -Wfatal-errors
-LFLAGS = -g -flto
+CFLAGS = -g -Ofast -fPIC -fomit-frame-pointer -std=c99 -Wfatal-errors
+LFLAGS = -g -Ofast -flto
 HEADERS:=$(wildcard *.h)
 
 .SUFFIXES:

@@ -158,7 +158,7 @@ static void draw() {
     /* bodies */
     glBegin(GL_QUADS);
     for (unsigned int i=0; i<opt.n_bodies; i++) {
-      glColor4f(0.0, 0.9, 0.0, 0.4);
+      glColor4f(0.5-z[i], 0.5, 0.5+z[i], 0.5+z[i]*0.1);
       glVertex3f(x[i], y[i], z[i]  );
       glVertex3f(0.003*m[i]+x[i], y[i], z[i]  );
       glVertex3f(0.003*m[i]+x[i], 0.003*m[i]+y[i], z[i]  );
@@ -224,7 +224,7 @@ int display_init() {
 
 int main(int argc, char **argv) {
 
-  opt.n_bodies = argc > 1 ? strtol(argv[1], NULL, 10) : 5000;
+  opt.n_bodies = argc > 1 ? strtol(argv[1], NULL, 10) : 7500;
   opt.n_iters  = argc > 2 ? strtol(argv[2], NULL, 10) : 10;
 
   pthread_t work_thread;
@@ -282,7 +282,6 @@ void *work(void *args) {
              "%5.3f M interactions/s\n",
              mflops, t, t/opt.n_iters, mflops/t,
              (opt.n_bodies * opt.n_bodies)/(t * (1 << 20)));
-      nsleep(100);
     }
 
   }

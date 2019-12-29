@@ -1,5 +1,6 @@
 # nbody
 A simple O(n^2) implementation of all-pairs nbody on CPU without optimizations
+<img src="nbody.gif" width=300/>
 
 # Quick start:
 ```
@@ -15,5 +16,3 @@ $ ./nbody
 ```
 $ ./nbody_gl
 ```
-
-<img src="nbody.gif" width=300/>

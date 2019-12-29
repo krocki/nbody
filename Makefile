@@ -9,8 +9,8 @@ HEADERS:=$(wildcard *.h)
 
 all: $(TARGETS)
 
-nbody_gl: main_gl.o nbody.o randf.o rsqrt.o
-	$(CC) -o $@ $^ $(LFLAGS)
+nbody_gl: main_gl.o nbody.o randf.o rsqrt.o randnf.o
+	$(CC) -o $@ $^ $(LFLAGS) -framework OpenGL -lglfw
 
 nbody: main.o nbody.o randf.o rsqrt.o
 	$(CC) -o $@ $^ $(LFLAGS)

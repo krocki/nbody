@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <pthread.h>
-#include <time.h>
+#include <unistd.h>
 #include "timer.h"
 
 #define GL_SILENCE_DEPRECATION 1
@@ -54,19 +54,6 @@ void *work(void *args);
 void randomize(void);
 
 static GLFWwindow* window;
-
-int nsleep(long ms) {
-  struct timespec req, rem;
-  if (ms > 999) {
-    req.tv_sec = (int)(ms/1000);
-    req.tv_nsec = (ms - ((long)req.tv_sec*1000)) * 1000000;
-  }
-  else {
-    req.tv_sec=0;
-    req.tv_nsec=ms*1000000;
-  }
-  return 0;//nanosleep(&req, &rem);
-}
 
 static void change_size_callback(GLFWwindow* window, int width, int height) {
   WIDTH = width;
@@ -262,7 +249,7 @@ void *work(void *args) {
 
   randomize();
 
-  while (!gl_ok) nsleep(10);
+  while (!gl_ok) usleep(10);
   {
     while (gl_ok) {
       double t;

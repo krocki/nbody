@@ -25,7 +25,7 @@ typedef struct opts {
 opts opt;
 
 #define AUTO_REFRESH 60
-#define OFFSET 256
+#define OFFSET 128
 
 typedef uint8_t u8;
 typedef uint16_t u16;
@@ -36,8 +36,8 @@ double time_step;
 double interactions;
 double gflops;
 
-int WIDTH = 1024;
-int HEIGHT = 1024;
+int WIDTH = 512;
+int HEIGHT = 512;
 int IM_W = 512;
 int IM_H = 512;
 int my=-1;
@@ -197,8 +197,8 @@ int display_init() {
     double fps = 1.0/(get_time()-frame_start);
     char wtitle[256]; wtitle[255] = '\0';
     frame_start = get_time();
-    sprintf(wtitle, "%4.1f FPS, %d bodies,"
-    " %.3f s/step, %.3f GFLOP/s",
+    sprintf(wtitle, "%5.1f FPS, %d bodies,"
+    " %1.3f s/step, %.3f GFLOP/s",
       fps, opt.n_bodies, time_step,
       gflops/time_step);
     glfwSetWindowTitle(window, wtitle);

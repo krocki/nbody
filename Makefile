@@ -24,7 +24,7 @@ nbody_gl: main_gl.o nbody.o randf.o rsqrt.o randnf.o
 nbody: main.o nbody.o randf.o rsqrt.o
 	$(CC) -o $@ $^ $(LFLAGS)
 
-bh: bh.o nbody-bh.o randf.o oct.o
+bh: bh.o nbody-bh.o randf.o oct.o particle.o
 	$(CC) -o $@ $^ $(LFLAGS)
 
 %.o: %.c $(HEADERS)

@@ -1,8 +1,15 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-typedef struct {
+struct float3 {
   float x, y, z;
+};
+
+typedef union {
+  float v[3];
+  struct {
+    float x, y, z;
+  };
 } float3;
 
 typedef struct {
@@ -10,10 +17,9 @@ typedef struct {
   float3 vel;
   float3 acc;
   float mass;
+  unsigned idx;
 } particle;
 
-void particle_print(particle *p) {
-
-}
+extern void particle_print(particle *p);
 
 #endif

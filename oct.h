@@ -1,37 +1,28 @@
 #ifndef OCT_H
 #define OCT_H
 
+#include "particle.h"
+
 #define CAP 8
 
-#define FNW 0
-#define FNE 1
-#define FSW 2
-#define FSE 3
-#define BNW 4
-#define BNE 5
-#define BSW 6
-#define BSE 7
+#define FSW 0
+#define FSE 1
+#define FNW 2
+#define FNE 3
+#define BSW 4
+#define BSE 5
+#define BNW 6
+#define BNE 7
 
 #define X 0
 #define Y 1
 #define Z 2
 
-typedef struct {
-  float x, y, z;
-} float3;
-
-typedef struct {
-  float3 pos;
-  float3 vel;
-  float3 acc;
-  float mass;
-} particle;
-
 typedef struct oct_node {
 
   struct oct_node *c[8];
   float a[3], b[3];
-
+  particle *p;
 } oct_node;
 
 extern oct_node *oct_alloc(void);

@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     p[i].pos.x = 2.0f * randf() - 1.0f;
     p[i].pos.y = 2.0f * randf() - 1.0f;
     p[i].pos.z = 2.0f * randf() - 1.0f;
-    p[i].mass = 1.0f;
+    p[i].mass = 1.0f; p[i].idx = i;
   }
 
   oct_node *root = NULL;

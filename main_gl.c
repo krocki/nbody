@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <sys/time.h>
 #include "timer.h"
 
 #define GL_SILENCE_DEPRECATION 1
@@ -24,15 +25,19 @@ typedef struct opts {
 opts opt;
 
 #define AUTO_REFRESH 60
-#define OFFSET 64
+#define OFFSET 256
 
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 
 double t0; // global start time
-int WIDTH = 512;
-int HEIGHT = 512;
+double time_step;
+double interactions;
+double gflops;
+
+int WIDTH = 1024;
+int HEIGHT = 1024;
 int IM_W = 512;
 int IM_H = 512;
 int my=-1;
@@ -192,7 +197,10 @@ int display_init() {
     double fps = 1.0/(get_time()-frame_start);
     char wtitle[256]; wtitle[255] = '\0';
     frame_start = get_time();
-    sprintf(wtitle, "%4.1f FPS", fps);
+    sprintf(wtitle, "%4.1f FPS, %d bodies,"
+    " %.3f s/step, %.3f GFLOP/s",
+      fps, opt.n_bodies, time_step,
+      gflops/time_step);
     glfwSetWindowTitle(window, wtitle);
     glfwMakeContextCurrent(window);
     glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
@@ -249,7 +257,15 @@ void *work(void *args) {
 
   randomize();
 
-  while (!gl_ok) usleep(10);
+  interactions =
+    (double)(
+        opt.n_bodies *
+        opt.n_bodies *
+        opt.n_iters);
+
+  gflops = interactions * 18 / (1 << 30);
+
+  while (!gl_ok) { delay(10); }
   {
     while (gl_ok) {
       double t;
@@ -257,18 +273,8 @@ void *work(void *args) {
               opt.n_bodies,
               opt.n_iters, x,  y,  z,
               vx, vy, vz, m, dt, eps), &t);
+      time_step = t;
 
-      double mflops = 18 *
-        (double)(
-            opt.n_bodies *
-            opt.n_bodies *
-            opt.n_iters) / (1 << 20);
-
-      printf("mflops: %.3f, time: %8.4f s\n"
-             "time/iteration: %10.6f s\n%5.2f mflop/s, "
-             "%5.3f M interactions/s\n",
-             mflops, t, t/opt.n_iters, mflops/t,
-             (opt.n_bodies * opt.n_bodies)/(t * (1 << 20)));
     }
 
   }

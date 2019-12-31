@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "oct.h"
+#include "particle.h"
 #include "timer.h"
 
 extern float randf();
 extern void
 bh(unsigned n, unsigned steps,
-   particle *p, float eps,
+   particle *p, float dt, float eps,
    oct_node *O);
 
 int main(int argc, char **argv) {
@@ -35,7 +36,7 @@ int main(int argc, char **argv) {
 
   oct_insert(root, &p[0]);
   oct_insert(root, &p[1]);
-  timeit(bh(n, i, p, eps, root));
+  timeit(bh(n, i, p, dt, eps, root));
 
   oct_release(root);
 

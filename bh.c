@@ -5,10 +5,8 @@
 void bh(const unsigned n,
         const unsigned steps,
         particle *p,
+        float dt,
         float eps,
         oct_node *O) {
 
-  puts(">>>bh");
-
-  puts("<<<bh");
 }

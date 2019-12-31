@@ -25,6 +25,7 @@ typedef struct oct_node {
   float a[3], b[3];
   particle *p;
   unsigned char id;
+  unsigned long bodies;
 } oct_node;
 
 extern oct_node *oct_alloc(void);

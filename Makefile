@@ -1,7 +1,8 @@
 CC=gcc
-TARGETS = nbody nbody_gl
+TARGETS = nbody nbody_gl bh
 INCLUDES=.
-OPT_LEVEL=-Ofast -mavx -fomit-frame-pointer -fPIC -mtune=native
+OPT_LEVEL=
+#-Ofast -mavx -fomit-frame-pointer -fPIC -mtune=native
 CFLAGS = -g -std=c99 -Wfatal-errors $(OPT_LEVEL)
 LFLAGS = -g $(OPT_LEVEL) -flto -lm
 HEADERS:=$(wildcard *.h) Makefile
@@ -21,6 +22,9 @@ nbody_gl: main_gl.o nbody.o randf.o rsqrt.o randnf.o
 	$(CC) -o $@ $^ $(LFLAGS) $(GL_FLAGS)
 
 nbody: main.o nbody.o randf.o rsqrt.o
+	$(CC) -o $@ $^ $(LFLAGS)
+
+bh: bh.o nbody-bh.o randf.o oct.o
 	$(CC) -o $@ $^ $(LFLAGS)
 
 %.o: %.c $(HEADERS)

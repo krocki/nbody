@@ -1,8 +1,7 @@
 CC=gcc
 TARGETS = nbody nbody_gl bh bh_gl
 INCLUDES=-I/usr/local/include/ -I.
-OPT_LEVEL=
-#-Ofast -mavx -fomit-frame-pointer -fPIC -mtune=native
+OPT_LEVEL=-Ofast -mavx -fomit-frame-pointer -fPIC -mtune=native
 CFLAGS = -g -std=c11 -Wfatal-errors $(OPT_LEVEL) -pedantic -Wextra
 LFLAGS = -g -L/usr/local/lib $(OPT_LEVEL) -flto -lm
 HEADERS:=$(wildcard *.h) Makefile

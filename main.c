@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
   timeit2(sim(n, i, x,  y,  z,
           vx, vy, vz, m, dt, eps), &t);
 
-  double mflops = 18 * (double)(n * n * i) / (1 << 20);
+  double mflops = 20 * (double)(n * n * i) / (1 << 20);
 
   printf("mflops: %.3f, time: %8.4f s\n"
          "time/iteration: %10.6f s\n%5.2f mflop/s, "

@@ -26,6 +26,9 @@ typedef struct oct_node {
   particle *p;
   unsigned char id;
   unsigned long bodies;
+  float mass_total;
+  float mass_center[3];
+  unsigned level;
 } oct_node;
 
 extern oct_node *oct_alloc(void);
@@ -33,5 +36,6 @@ extern void oct_release(oct_node *n);
 extern void oct_print(oct_node *n);
 extern void oct_reset(oct_node *n);
 extern void oct_insert(oct_node *n, particle *p);
-
+extern void forces(float3 *F, unsigned long *ops,
+       oct_node *o, particle *p, float theta, float eps);
 #endif

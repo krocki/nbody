@@ -116,37 +116,6 @@ void draw_point(float x, float y, float r, float g, float b, float a) {
 
 static void draw() {
 
-//    int width, height;
-//    glfwGetFramebufferSize(glfwGetCurrentContext(),
-//        &width, &height);
-//    glViewport(0, 0, width, height);
-//    glMatrixMode(GL_PROJECTION);
-//    glLoadIdentity();
-//    glMatrixMode ( GL_MODELVIEW );
-//    glLoadIdentity();
-//    //glOrtho(0.f, 1.f, 0.f, 1.f, 0.f, 1.f);
-//
-//    if (1 == grid) {
-//      glLineWidth(1.0f);
-//      glBegin(GL_LINES);
-//
-//      int num = 4;
-//      float wf = 1.0f/((float)num);
-//
-//      // horizontal
-//      for (int i=1; i<num; i++) {
-//        glColor4f(0.35f, 0.35f, 0.35f, (i%16==0)? 0.3f : 0.15f);
-//        glVertex2f( 0.0f, i * wf); glVertex2f( 1.0f, i * wf);
-//      }
-//
-//      // vertical
-//      for (int i=1; i<num; i++) {
-//        glColor4f(0.35f, 0.35f, 0.35f, (i%16==0)? 0.3f : 0.15f);
-//        glVertex2f( i * wf, 1.0f ); glVertex2f( i * wf, 0.0f );
-//      }
-//      glEnd();
-//    }
-//
     /* bodies */
     glBegin(GL_QUADS);
     for (unsigned int i=0; i<opt.n_bodies; i++) {
@@ -157,11 +126,6 @@ static void draw() {
       glVertex3f(x[i], 0.003*m[i]+y[i], z[i]  );
     }
     glEnd();
-
-    //glBegin(GL_QUADS);
-    //// cursor
-    //draw_point(mx, my, 1, 0, 0, 0.8);
-    //glEnd();
 
 }
 
@@ -263,7 +227,7 @@ void *work(void *args) {
         opt.n_bodies *
         opt.n_iters);
 
-  gflops = interactions * 18 / (1 << 30);
+  gflops = interactions * 20 / (1 << 30);
 
   while (!gl_ok) { delay(10); }
   {
@@ -294,6 +258,7 @@ void randomize() {
     vx[i] = 50.f * (randf() - 0.5f);
     vy[i] = 50.f * (randf() - 0.5f);
     vz[i] = 50.f * (randf() - 0.5f);
-    m[i] = randnf(0.5,2);
+    m[i] = randnf(2, 1);
+    if (m[i] < 0) m[i] = 1e-2;
   }
 }

@@ -21,5 +21,6 @@ typedef struct {
 } particle;
 
 extern void particle_print(particle *p);
+extern int particle_in_range(particle *x, float *a, float *b);
 
 #endif

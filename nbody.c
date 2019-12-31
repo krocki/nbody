@@ -26,16 +26,22 @@ void sim(const unsigned n,
       /* compute forces Fx, Fy, Fz */
       for (unsigned j=0; j<n; j++) {
 
+        /* 3 */
         float dx = x[j] - xi;
         float dy = y[j] - yi;
         float dz = z[j] - zi;
+        /* 6 */
         float dist = eps + dx*dx + dy*dy + dz*dz;
+        /* 2 */
         float inv = 1.0f / sqrtf(dist);
+        /* 2 */
         float inv3 = inv*inv*inv;
-
-        Fx += dx * inv3;
-        Fy += dy * inv3;
-        Fz += dz * inv3;
+        /* 1 */
+        float s = m[j] * inv3;
+        /* 6 */
+        Fx += dx * s;
+        Fy += dy * s;
+        Fz += dz * s;
       }
 
       vx[i] += dt*Fx;

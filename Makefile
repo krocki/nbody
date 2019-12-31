@@ -3,15 +3,16 @@ TARGETS = nbody nbody_gl bh bh_gl
 INCLUDES=-I/usr/local/include/ -I.
 OPT_LEVEL=
 #-Ofast -mavx -fomit-frame-pointer -fPIC -mtune=native
-CFLAGS = -g -std=c11 -Wfatal-errors $(OPT_LEVEL) -DAPPLE -pedantic -Wextra -DGL_SILENCE_DEPRECATION
+CFLAGS = -g -std=c11 -Wfatal-errors $(OPT_LEVEL) -pedantic -Wextra
 LFLAGS = -g -L/usr/local/lib $(OPT_LEVEL) -flto -lm
 HEADERS:=$(wildcard *.h) Makefile
 
 OS:=$(shell uname)
 ifeq ($(OS),Darwin) #OSX
-  GL_FLAGS=-lglew -lglfw -framework OpenGL -lpthread
+  GL_FLAGS=-lglfw -framework OpenGL -lpthread
+  CFLAGS:=$(CFLAGS) -DAPPLE -DGL_SILENCE_DEPRECATION
 else # Linux or other
-  GL_FLAGS=-lglew -lglfw -lGL -lpthread
+  GL_FLAGS=-lglfw -lGL -lpthread
 endif
 
 .SUFFIXES:

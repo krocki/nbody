@@ -21,8 +21,10 @@
 typedef struct oct_node {
 
   struct oct_node *c[8];
+  struct oct_node *parent;
   float a[3], b[3];
   particle *p;
+  unsigned char id;
 } oct_node;
 
 extern oct_node *oct_alloc(void);

@@ -4,7 +4,7 @@
 
 const char* inverse_id[8] =
 {
-  "FSW", "FSE", "FNW", "FSW",
+  "FSW", "FSE", "FNW", "FNE",
   "BSW", "BSE", "BNW", "BNE"
 };
 
@@ -28,13 +28,16 @@ void oct_print(oct_node *n) {
 
   if (0 != n) {
     printf("oct_node: %p, "
-    "[x %1.3f:%1.3f] "
-    "[y %1.3f:%1.3f] "
-    "[z %1.3f:%1.3f]\n",
-    n,
+    "id %d (%s), parent %p\n"
+    "\t[x %6.3f:%6.3f]\n"
+    "\t[y %6.3f:%6.3f]\n"
+    "\t[z %6.3f:%6.3f]\n",
+    n, n->id, inverse_id[n->id],
+    n->parent,
     n->a[X], n->b[X],
     n->a[Y], n->b[Y],
     n->a[Z], n->b[Z]);
+
     if (n->p) particle_print(n->p);
 
     for (int i=0; i<CAP; i++)
@@ -57,8 +60,9 @@ void oct_insert(oct_node *n, particle *p) {
 
   puts("oct_insert");
   particle_print(p);
-
   oct_print(n);
+  puts("----------");
+
   float m[3];
   unsigned idx[3];
   unsigned idx_final = 0;
@@ -78,6 +82,7 @@ void oct_insert(oct_node *n, particle *p) {
   else {
     /* n->c[idx] is null */
     oct_node *q = n->c[idx_final] = oct_alloc();
+    q->parent = n; q->id = idx_final;
     q->p = p;
     for (int i=0; i<3; i++) {
       if (idx[i] < 1) {
@@ -87,4 +92,7 @@ void oct_insert(oct_node *n, particle *p) {
       }
     }
   }
+  puts("oct_after_insert");
+  oct_print(n);
+  puts("----------");
 }
